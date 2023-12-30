@@ -9,15 +9,54 @@ class StubIDProvider implements IIDProvider {
 }
 
 const idProvider = new StubIDProvider();
+const form = new GuestForm(idProvider);
+const emptyInitialState: OrderingDomainModel.Guest[] = [];
+const stateWithOneGuest: OrderingDomainModel.Guest[] = [
+  {
+    id: '1',
+    firstName: 'John',
+    lastName: 'Doe',
+    age: 0,
+  },
+];
+
+const stateWithTwoGuest: OrderingDomainModel.Guest[] = [
+  {
+    id: '1',
+    firstName: 'John',
+    lastName: 'Doe',
+    age: 0,
+  },
+  {
+    id: '2',
+    firstName: 'John',
+    lastName: 'Doe',
+    age: 0,
+  },
+];
 
 describe('add a guest', () => {
   it('should add a guest', () => {
-    const form = new GuestForm(idProvider);
-    const inititialState: OrderingDomainModel.Guest[] = [];
-    const state = form.addGuest(inititialState);
+    const state = form.addGuest(emptyInitialState);
+    expect(state).toEqual(stateWithOneGuest);
+  });
+});
+
+describe('removing a guest', () => {
+  it('should remove nobody when the state is empty', () => {
+    const state = form.removeGuest(emptyInitialState, '1');
+    expect(state).toEqual([]);
+  });
+
+  it('should remove the  guest given the id', () => {
+    const state = form.removeGuest(stateWithOneGuest, '1');
+    expect(state).toEqual([]);
+  });
+  it('should remove the  guest given the id', () => {
+    const state = form.removeGuest(stateWithTwoGuest, '1');
     expect(state).toEqual([
       {
-        id: '1',
+        id: '2',
         firstName: 'John',
         lastName: 'Doe',
         age: 0,

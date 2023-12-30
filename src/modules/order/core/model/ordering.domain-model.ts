@@ -8,6 +8,6 @@ export namespace OrderingDomainModel {
 
   export type Form = {
     guests: Guest[];
-    organizedid: string | null;
+    organizerId: string | null;
   };
 }

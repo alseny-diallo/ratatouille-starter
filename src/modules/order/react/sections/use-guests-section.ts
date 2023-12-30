@@ -16,18 +16,21 @@ export const useGuestsSection = () => {
 
   function updateGuest(id: string, key: string, value: any) {}
 
-  function changeOrganizer() {}
+  function changeOrganizer(id: string) {
+    const newGuest = guestForm.current.changeOrganizer(form, id);
+    setForm(newGuest);
+  }
 
   function onNext() {}
 
   function isSubmittable() {
-    return false;
+    return guestForm.current.isSubmittable(form);
   }
   const { idProvider } = useDependencies();
   const guestForm = useRef(new GuestForm(idProvider));
   const [form, setForm] = useState<OrderingDomainModel.Form>({
     guests: [],
-    organizedid: null,
+    organizerId: null,
   });
 
   return {

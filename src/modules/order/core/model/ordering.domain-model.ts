@@ -5,4 +5,9 @@ export namespace OrderingDomainModel {
     lastName: string;
     age: number;
   };
+
+  export type Form = {
+    guests: Guest[];
+    organizedid: string | null;
+  };
 }

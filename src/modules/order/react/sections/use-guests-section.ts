@@ -5,13 +5,13 @@ import { useDependencies } from '@ratatouille/modules/app/react/DependenciesProv
 
 export const useGuestsSection = () => {
   function addGuest() {
-    const newGuest = guestForm.current.addGuest(guests);
-    setGuests(newGuest);
+    const newGuest = guestForm.current.addGuest(form);
+    setForm(newGuest);
   }
 
   function removeGuest(id: string) {
-    const newGuest = guestForm.current.removeGuest(guests, id);
-    setGuests(newGuest);
+    const newGuest = guestForm.current.removeGuest(form, id);
+    setForm(newGuest);
   }
 
   function updateGuest(id: string, key: string, value: any) {}
@@ -25,7 +25,10 @@ export const useGuestsSection = () => {
   }
   const { idProvider } = useDependencies();
   const guestForm = useRef(new GuestForm(idProvider));
-  const [guests, setGuests] = useState<OrderingDomainModel.Guest[]>([]);
+  const [form, setForm] = useState<OrderingDomainModel.Form>({
+    guests: [],
+    organizedid: null,
+  });
 
   return {
     addGuest,
@@ -34,6 +37,6 @@ export const useGuestsSection = () => {
     changeOrganizer,
     onNext,
     isSubmittable: isSubmittable(),
-    guests,
+    form,
   };
 };

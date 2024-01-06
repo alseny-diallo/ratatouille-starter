@@ -99,3 +99,23 @@ describe('Is  submittable', () => {
     expect(isSubmittable).toEqual(true);
   });
 });
+
+describe('update guest', () => {
+  it.each([
+    {
+      key: 'firstName' as keyof OrderingDomainModel.Guest,
+      value: 'Jane',
+    },
+    {
+      key: 'lastName' as keyof OrderingDomainModel.Guest,
+      value: 'Weak',
+    },
+    {
+      key: 'age' as keyof OrderingDomainModel.Guest,
+      value: 25,
+    },
+  ])('should change the %s of the guest', ({ key, value }) => {
+    const state = form.updateGuest(stateWithOneGuest, '1', key, value);
+    expect(state.guests[0][key]).toEqual(value);
+  });
+});
